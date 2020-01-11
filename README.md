@@ -6,4 +6,4 @@ Script should run as root. First type  command
 That will enable root mode
 
 After that you should make script executible by command 
-`chmod u+x todo_after_installing_ubuntu.sh`
+`chmod u+x todo_after_install_ubuntu.sh`
