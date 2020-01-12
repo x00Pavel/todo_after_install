@@ -26,22 +26,19 @@ echo "\n${bold}------------ Insall snap ------------${offbold}"
 (snap --version >> /dev/null && echo " ------------ Snap is installed ------------") || apt install snap
 
 #       install Visual Studio code
-echo; echo "------------ Insall Visual Studio code ------------"
-# download Microsoft GPG key
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-#  install the key 
-mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-# Add the VS Code repository to your system
-sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-# installin vs code
+echo "${bold}------------ Insall Visual Studio code ------------${offbold}"
+apt install software-properties-common apt-transport-https wget 
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 apt update
-snap install code 
+apt install code
 
 #       Install Chromium
-echo; echo "------------ Install Chromium ------------"
+echo "${bold}------------ Install Chromium ------------${offbold}"
 apt install -y chromium-browser
+
 #       Install Skype
-echo; echo "------------ Install Skype ------------"
+echo "${bold}------------ Install Skype ------------${offbold}"
 apt install gdebi-core
 cd apps
 wget https://repo.skype.com/latest/skypeforlinux-64.deb
