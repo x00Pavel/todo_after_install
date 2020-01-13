@@ -118,11 +118,12 @@ apt autoremove
 
 #	Exit from root 
 echo -e "\n${bold}------------ Exit from root ------------${offbold}"
-code --install-extension ms-vscode.cpptools
-code --install-extansion ms-vscode.atom-keybindings
-code --install-extansion austin.code-gnu-global
-code --install-extansion streetsidesoftware.code-spell-checker
-code --install-extansion streetsidesoftware.code-spell-checker-czech
-code --install-extansion twxs.cmake-0.0.17
+code --install-extension Shan.code-settings-sync
+# code --install-extension ms-vscode.cpptools
+# code --install-extansion ms-vscode.atom-keybindings
+# code --install-extansion austin.code-gnu-global
+# code --install-extansion streetsidesoftware.code-spell-checker
+# code --install-extansion streetsidesoftware.code-spell-checker-czech
+# code --install-extansion twxs.cmake-0.0.17
 
 
