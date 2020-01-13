@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # add VS code pakages installation (see google)
+# add setting up Vim (vimrc file) in /usr/share/vim/vimrc 
+# in future extende for modes such as "verbose" where ask user if isntall and add ability to choose programs 
 
 alias echo='echo -e'
 
@@ -23,10 +25,10 @@ apt install -y ubuntu-restricted-extras
 
 #       Install snap
 echo "\n${bold}------------ Insall snap ------------${offbold}"
-(snap --version >> /dev/null && echo " ------------ Snap is installed ------------") || apt install snap
+(snap --version >> /dev/null && echo "${bold}------------ Snap is installed ------------${offbold}") || apt install snap
 
 #       install Visual Studio code
-echo; echo "------------ Insall Visual Studio code ------------"
+echo "\n${bold}------------ Insall Visual Studio code ------------${offbold}"
 # download Microsoft GPG key
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 #  install the key 
@@ -38,41 +40,41 @@ apt update
 snap install code 
 
 #       Install Chromium
-echo; echo "------------ Install Chromium ------------"
+echo "\n${bold}------------ Install Chromium ------------${offbold}"
 apt install -y chromium-browser
 #       Install Skype
-echo; echo "------------ Install Skype ------------"
+echo; echo "\n${bold}------------ Install Skype ------------${offbold}"
 apt install gdebi-core
 cd apps
 wget https://repo.skype.com/latest/skypeforlinux-64.deb
 gdebi -y skypeforlinux-64.deb
 
 #       Install SMplayer
-echo; echo "------------ Install SMplayer ------------"
+echo; echo "------------ Install SMplayer ------------${offbold}"
 apt install -y smplayer
 
 #       Install virtual box 
-echo; echo "------------ Insall VirtualBox ------------"
+echo; echo "------------ Insall VirtualBox ------------${offbold}"
 apt install -y virtualbox
 # install extantion pack 
 wget https://download.virtualbox.org/virtualbox/6.1.0/virtualbox-6.1_6.1.0-135406~Ubuntu~bionic_amd64.deb && dpkg -i virtualbox-6.1_6.1.0-135406_Ubuntu_bionic_amd64.deb
 apt autoremove
 
 #       Install Discord
-echo; echo "------------ Insall Discord ------------"
+echo; echo "------------ Insall Discord ------------${offbold}"
 snap install -y discord
 
 #       Install vim 
-echo; echo "------------ Insall Vim ------------"
+echo; echo "------------ Insall Vim ------------${offbold}"
 apt install -y vim
 vim /usr/share/vim/vimrc
 
 #       Install Python3
-echo; echo "------------ Insall Python3 ------------"
-(python3 --version && "------------ Python3 is installed ------------" ) || apt install python3
+echo; echo "------------ Insall Python3 ------------${offbold}"
+(python3 --version && "------------ Python3 is installed ------------${offbold}" ) || apt install python3
 
 #       Install CMake
-echo; echo "------------ Insall CMake ------------"
+echo; echo "${bold}------------ Insall CMake ------------${offbold}"
 wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz
 tar -zxvf cmake-3.15.2.tar.gz ~/apps
 mv cmake-3.15.2.tar.gz ~/apps
@@ -80,16 +82,15 @@ cd apps && cd cmake-3.15.2 && ./bootstrap && make -j4 && make install
 cd ~/
 
 #       Install telegram 
-echo; echo '"\n"------------ Insall Telegram ------------'
+echo "\n${bold}------------ Insall Telegram ------------"
 apt install -y telegram-desktop
 
 #       Install Sticker notes
-echo; echo " \n ------------ Insall Sticker notes ------------"
+echo "\n${bold}------------ Insall Sticker notes ------------"
 apt instal -yl indicator-stickynotes
 
 #       Insall Flatpack for more applications
-echo
-echo "------------ Insall Flatpack ------------" 
+echo "\n${bold}------------ Insall Flatpack ------------${offbold}" 
 # check if Flatpak support is enabled or not
 apt install -y flatpak
 #  install the Flatpak plugin for GNOME Software Center.
@@ -98,18 +99,18 @@ apt install -y gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #       Install tweak tool
-echo; echo "------------ Install Tweak tools ------------" 
+echo; echo "\n${bold}------------ Install Tweak tools ------------${offbold}" 
 apt install -y gnome-tweak-tool
 
 #        Prolong your battery and prevent overheating
-echo; echo "------------ Install for batary ------------" 
+echo; echo "\n${bold}------------ Install for batary ------------${offbold}" 
 # install TLP
 apt install -y tlp tlp-rdw
 # start tlp
 tlp start
 
 #       Inable night mode
-echo; echo "------------ Inable night-mode ------------" 
+echo "\n${bold}------------ Inable night-mode ------------${offbold}" 
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 #       
