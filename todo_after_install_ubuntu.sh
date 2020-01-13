@@ -19,11 +19,14 @@ mkdir ~/apps
 
 #       Install media codecs
 echo "\n${bold}------------ Insall media codecs ------------${offbold}"
-apt install -y ubuntu-restricted-extras 
+sudo apt install -y ubuntu-restricted-extras 
+
+#       Install preload for storing fiels on RAM
+sudo apt-get install preload
 
 #       Install snap
 echo "\n${bold}------------ Insall snap ------------${offbold}"
-(snap --version >> /dev/null && echo " ------------ Snap is installed ------------") || apt install snap
+(snap --version >> /dev/null && echo " ------------ Snap is installed ------------") || sudo apt install snap
 
 #       install Visual Studio code
 echo "${bold}------------ Insall Visual Studio code ------------${offbold}"
