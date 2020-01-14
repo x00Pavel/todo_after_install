@@ -109,8 +109,8 @@ apt install -y tlp tlp-rdw
 tlp start
 
 #       Inable night mode
-echo -e "\n${bold}------------ Inable night-mode ------------${offbold}" 
-gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+# echo -e "\n${bold}------------ Inable night-mode ------------${offbold}" 
+# gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 #       
 echo -e "\n${bold}------------ Autoremove unnessary packages ------------${offbold}"
@@ -118,12 +118,14 @@ apt autoremove
 
 #	Exit from root 
 echo -e "\n${bold}------------ Exit from root ------------${offbold}"
-code --install-extension Shan.code-settings-sync
-# code --install-extension ms-vscode.cpptools
-# code --install-extansion ms-vscode.atom-keybindings
-# code --install-extansion austin.code-gnu-global
-# code --install-extansion streetsidesoftware.code-spell-checker
-# code --install-extansion streetsidesoftware.code-spell-checker-czech
-# code --install-extansion twxs.cmake-0.0.17
-
-
+ex='exit'
+eval $ex
+# code --install-extension Shan.code-settings-sync
+code --install-extension ms-vscode.cpptools
+code --install-extansion ms-vscode.atom-keybindings
+code --install-extansion austin.code-gnu-global
+code --install-extansion streetsidesoftware.code-spell-checker
+code --install-extansion streetsidesoftware.code-spell-checker-czech
+code --install-extansion twxs.cmake
+cp ~/todo_after_install/c.json ~/.vscode/extansions/
+echo -e "\n${bold}Now download your settings from Google disk${offbold}"
