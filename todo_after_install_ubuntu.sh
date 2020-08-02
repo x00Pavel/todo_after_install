@@ -36,6 +36,7 @@ sudo add-apt-repository restricted
 mkdir ~/apps
 cd ~/apps
 apps="Preload - program for storiing some data in RAM\n
+Git - version controll system\n
 Visual Studi Code - code editor\n
 VSCode extansions:\n
 \tC/C++ extansion\n
@@ -72,7 +73,13 @@ install_app "Preload" "sudo apt-get install preload"
 
 #       Install snap
 echo -e "\n${bold}${dashs} Check Snap is installed ${dashs}${offbold}"
-(snap --version >> /dev/null && echo "${bold}${dashs} Snap is installed ${dashs}${offbold}") || sudo apt install snap
+(snap --version >> /dev/null && echo "${bold}Snap is already installed${offbold}") || install_app "Snap" "sudo apt install -y snap"
+
+
+#       install Git
+echo -e"\n${bold}${dashs} Git ${dashs}${offbold}"
+(git --version >> /dev/null && echo "${bold}Git is already installed${offbold}") || install_app "Git" "sudo apt install -y git"
+
 
 #       install Visual Studio code
 echo -e"\n${bold}${dashs} Visual Studio code ${dashs}${offbold}"
@@ -128,7 +135,7 @@ install_app "VLC player" "sudo snap install vlc"
 
 #       Install virtual box 
 echo -e "\n${bold}${dashs} VirtualBox ${dashs}${offbold}"
-install_app "Virtual Box" "sudo apt install virtualbox"
+install_app "Virtual Box" "sudo apt install -y virtualbox"
 
 
 #       Install Discord
