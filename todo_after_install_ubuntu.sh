@@ -1,131 +1,168 @@
-#!/bin/sh
+#!/bin/bash
 
 # add VS code pakages installation (see google)
 # Configuring ttf-mscorefonts-installer see how to confirme from terminal
 
 
 bold=`tput smso`
+dashs=`------------`
 offbold=`tput rmso`
+all = true
 
-apt update #&& apt upgrade -y 
+install_app(){
+    if $all then
+        eval $2
+    else
+        while true; do
+            read -p "Install {$1}?" yn
+            case $yn in
+                [Yy]* ) eval $2; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+}
+
+echo "\n${bold}${dashs} Update and upgrade all installed packages ${dashs}${offbold}"
+sudo apt update && apt upgrade -y 
 
 #       adding multivers and univers repositories 
-echo -e "\n${bold}------------ Add repositories ------------${offbold}"
-add-apt-repository universe
-add-apt-repository multiverse
-add-apt-repository restricted 
+echo -e "\n${bold}${dashs} Add repositories ${dashs}${offbold}"
+sudo add-apt-repository universe
+sudo add-apt-repository multiverse
+sudo add-apt-repository restricted 
 
 mkdir ~/apps
 cd ~/apps
+apps="Preload - program for storiing some data in RAM\n
+Visual Studi Code - code editor\n
+VSCode extansions:\n
+\tC/C++ extansion\n
+\tSpell cheker for english and czech language\n
+\tTemplates for C language\n
+Chromium - open-source Chrome brouser\n
+Skype - everyone knows waht is this\n
+VLC player - media player\nVirtual Box - virtualization solution\n
+Discord - sotial network for message and vouice chats\n
+Vim - text editor in terminal\n
+Python3.8 - interpret for Python language\n
+Telegram - messenger\n
+Gnome-tweak-tools - extansions to basic gnome settings\n
+Make - system for buildiong projects\n"
+
+
+echo -e "${bold}This script is going to install following programs${offbold}\n${apps}"
+while true; do
+    read -p "Install all of this programs?" yn
+    case $all in
+        [Yy]* ) all = true; break;;
+        [Nn]* ) all = false; break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 #       Install media codecs
-echo -e "\n${bold}------------ Insall media codecs ------------${offbold}"
-apt install -y ubuntu-restricted-extras 
+echo -e "\n${bold}${dashs} Insall media codecs ${dashs}${offbold}"
+sudo apt install -y ubuntu-restricted-extras 
 
 #       Install preload for storing fiels on RAM
-apt-get install preload
+echo -e "\n${bold}${dashs} Install preload for storing fiels on RAM ${dashs}${offbold}"
+install_app "Preload" "sudo apt-get install preload"
+
 
 #       Install snap
-echo -e "\n${bold}------------ Insall snap ------------${offbold}"
-(snap --version >> /dev/null && echo "${bold}------------ Snap is installed ------------${offbold}") || sudo apt install snap
+echo -e "\n${bold}${dashs} Check Snap is installed ${dashs}${offbold}"
+(snap --version >> /dev/null && echo "${bold}${dashs} Snap is installed ${dashs}${offbold}") || sudo apt install snap
 
 #       install Visual Studio code
-echo -e"\n${bold}------------ Insall Visual Studio code ------------${offbold}"
-apt install software-properties-common apt-transport-https wget 
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-apt update
-apt install -y code
+echo -e"\n${bold}${dashs} Visual Studio code ${dashs}${offbold}"
+install_app "Visual Studio Code" "sudo snap install code --classic"
+if $all then 
+    code --install-extension ms-vscode.cpptools;
+    code --install-extansion austin.code-gnu-global;
+    code --install-extansion streetsidesoftware.code-spell-checker;
+    code --install-extansion streetsidesoftware.code-spell-checker-czech;
+    code --install-extansion streetsidesoftware.code-spell-checker-czech;
+else
+    while true; do
+        read -p "Install basic exntasions for Visual Studio Code?" yn
+        case $yn in
+            [Yy]* ) code --install-extension ms-vscode.cpptools;
+                    code --install-extansion austin.code-gnu-global;
+                    code --install-extansion streetsidesoftware.code-spell-checker;
+                    code --install-extansion streetsidesoftware.code-spell-checker-czech;
+                    code --install-extansion streetsidesoftware.code-spell-checker-czech;
+                    break;;
+            [Nn]* ) break;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
+
+if $all then 
+    cp ~/todo_after_install/c.json ~/.vscode/extansions/
+else
+    while true; do
+        read -p "Install templates for C language?" yn
+        case $yn in
+            [Yy]* ) cp ~/todo_after_install/c.json ~/.vscode/extansions/; break;;
+            [Nn]* ) break;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
 
 #       Install Chromium
-echo -e "\n${bold}------------ Install Chromium ------------${offbold}"
-apt install -y chromium-browser
+echo -e "\n${bold}${dashs} Chromium ${dashs}${offbold}"
+install_app "Chromium" "sudo snap install skype --classic"
+
 
 #       Install Skype
-echo -e "\n${bold}------------ Install Skype ------------${offbold}"
-apt install gdebi-core
-
-wget https://repo.skype.com/latest/skypeforlinux-64.deb
-gdebi skypeforlinux-64.deb
+echo -e "\n${bold}${dashs} Skype ${dashs}${offbold}"
+install_app "Skype" "sudo snap install skype --classic"
 
 #       Install SMplayer
-echo -e "\n${bold}------------ Install SMplayer ------------${offbold}"
-apt install -y smplayer
+echo -e "\n${bold}${dashs} VLC player ${dashs}${offbold}"
+install_app "VLC player" "sudo snap install vlc"
+
 
 #       Install virtual box 
-echo -e "\n${bold}------------ Insall VirtualBox ------------${offbold}"
-apt install -y virtualbox-6.1
-# install extantion pack 
-#wget https://download.virtualbox.org/virtualbox/6.1.0/virtualbox-6.1_6.1.0-135406~Ubuntu~bionic_amd64.deb && dpkg -i virtualbox-6.1_6.1.0-135406_Ubuntu_bionic_amd64.deb
-#apt autoremove
-#https://download.virtualbox.org/virtualbox/6.1.0/Oracle_VM_VirtualBox_Extension_Pack-6.1.0.vbox-extpack
+echo -e "\n${bold}${dashs} VirtualBox ${dashs}${offbold}"
+install_app "Virtual Box" "sudo apt install virtualbox"
+
 
 #       Install Discord
-echo -e "\n${bold}------------ Insall Discord ------------${offbold}"
-snap install discord
+echo -e "\n${bold}${dashs} Discord ${dashs}${offbold}"
+install_app "Discord" "sudo snap install discord"
+
 
 #       Install vim 
-echo -e "\n${bold}------------ Insall Vim ------------${offbold}"
-apt install -y vim
+echo -e "\n${bold}${dashs} Insall Vim ${dashs}${offbold}"
+install_app "Vim" "sudo snap install vim-editor"
+
 # setup for numbers of line and etc
-echo -e "set showmatch\nset nu\nset mouse=a\nset smartcase\nset background=dark" >> /usr/share/vim/vimrc
+
+# echo -e "set showmatch\nset nu\nset mouse=a\nset smartcase\nset background=dark" >> 
 
 #       Install Python3
-echo -e "\n${bold}------------ Insall Python3 ------------${offbold}"
-(python3 --version && "\n${bold}------------ Python3 is installed ------------${offbold}" ) || apt install python3
+echo -e "\n${bold}${dashs} Python3 ${dashs}${offbold}"
+(python3 --version && "\n${bold}${dashs} Python3 is installed ${dashs}${offbold}" ) || install_app "Python3" "sudo snap install python38"
 
 #       Install CMake
-echo -e "\n${bold}------------ Insall CMake ------------${offbold}"
-wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz
-tar -zxvf cmake-3.15.2.tar.gz 
-cd cmake-3.15.2 && ./bootstrap && make -j4 && make install
-cd ..
+echo -e "\n${bold}${dashs} Make ${dashs}${offbold}"
+install_app "Make" "sudo apt install -y make"
+sudo apt install -y build-essential
 
 #       Install telegram 
-echo -e "\n${bold}------------ Insall Telegram ------------${offbold}"
-apt install -y telegram-desktop
+echo -e "\n${bold}${dashs} Telegram ${dashs}${offbold}"
+install_app "Telegram" "sudo snap install telegram-desktop"
 
-#       Install Sticker notes
-echo -e "\n${bold}------------ Insall Sticker notes ------------${offbold}"
-apt instal -yl indicator-stickynotes
-
-#       Insall Flatpack for more applications
-echo -e "\n${bold}------------ Insall Flatpack ------------${offbold}" 
-# check if Flatpak support is enabled or not
-apt install -y flatpak
-#  install the Flatpak plugin for GNOME Software Center.
-apt install -y gnome-software-plugin-flatpak
-#  add the Flathub repository that will give you access to all the applications available on Flathub website
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #       Install tweak tool
-echo -e "\n${bold}------------ Install Tweak tools ------------${offbold}" 
-apt install -y gnome-tweak-tool
+echo -e "\n${bold}${dashs} Tweak tools ${dashs}${offbold}" 
+install_app "Gnome-tweak-tool" "sudo apt install -y gnome-tweak-tool"
 
-#        Prolong your battery and prevent overheating
-echo -e "\n${bold}------------ Install for batary ------------${offbold}" 
-# install TLP
-apt install -y tlp tlp-rdw
-# start tlp
-tlp start
 
-#       Inable night mode
-# echo -e "\n${bold}------------ Inable night-mode ------------${offbold}" 
-# gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
-
-#       
-echo -e "\n${bold}------------ Autoremove unnessary packages ------------${offbold}"
-apt autoremove
-
-#	Exit from root 
-echo -e "\n${bold}------------ Exit from root ------------${offbold}"
-ex='exit'
-eval $ex
-# code --install-extension Shan.code-settings-sync
-code --install-extension ms-vscode.cpptools
-code --install-extansion ms-vscode.atom-keybindings
-code --install-extansion austin.code-gnu-global
-code --install-extansion streetsidesoftware.code-spell-checker
-code --install-extansion streetsidesoftware.code-spell-checker-czech
-code --install-extansion twxs.cmake
-cp ~/todo_after_install/c.json ~/.vscode/extansions/
-echo -e "\n${bold}Now download your settings from Google disk${offbold}"
+echo -e "\n${bold}${dashs} Autoremove unnessary packages ${dashs}${offbold}"
+sudo apt autoremove
+sudo apt clean
