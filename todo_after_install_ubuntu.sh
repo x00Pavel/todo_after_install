@@ -24,6 +24,9 @@ install_app(){
     fi
 }
 
+ps -C unattended-upgr >/dev/null && echo "Stop autoamte upgrade system. In the end this option will be turn ON again" && sudo systemctl disable unattended-upgrades
+# sudo systemctl disable unattended-upgrades
+
 echo -e "\n${bold}${dashs} Update and upgrade all installed packages ${dashs}${offbold}"
 sudo apt update && sudo apt upgrade -y 
 
@@ -172,3 +175,13 @@ install_app "Gnome-tweak-tool" "sudo apt install -y gnome-tweak-tool"
 echo -e "\n${bold}${dashs} Autoremove unnessary packages ${dashs}${offbold}"
 sudo apt autoremove
 sudo apt clean
+
+echo -e "\n${bold}${dashs} Restart computer ${dashs}${offbold}"
+while true; do
+    read -p "Do you want to restart computer now? This is necessary to finish all setup " yn
+    case $yn in
+        [Yy]* ) sudo reboot now; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
