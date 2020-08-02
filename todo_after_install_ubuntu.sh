@@ -5,18 +5,18 @@
 
 
 bold=`tput smso`
-dashs=`------------`
+dashs="------------"
 offbold=`tput rmso`
-all = true
+all=true
 
 install_app(){
-    if $all then
+    if $all ; then
         eval $2
     else
         while true; do
             read -p "Install {$1}?" yn
             case $yn in
-                [Yy]* ) eval $2; break;;
+                [Yy]* ) eval $2 break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac
@@ -24,8 +24,8 @@ install_app(){
     fi
 }
 
-echo "\n${bold}${dashs} Update and upgrade all installed packages ${dashs}${offbold}"
-sudo apt update && apt upgrade -y 
+echo -e "\n${bold}${dashs} Update and upgrade all installed packages ${dashs}${offbold}"
+sudo apt update && sudo apt upgrade -y 
 
 #       adding multivers and univers repositories 
 echo -e "\n${bold}${dashs} Add repositories ${dashs}${offbold}"
@@ -33,38 +33,37 @@ sudo add-apt-repository universe
 sudo add-apt-repository multiverse
 sudo add-apt-repository restricted 
 
-mkdir ~/apps
-cd ~/apps
-apps="Preload - program for storiing some data in RAM\n
-Git - version controll system\n
-Visual Studi Code - code editor\n
-VSCode extansions:\n
-\tC/C++ extansion\n
-\tSpell cheker for english and czech language\n
-\tTemplates for C language\n
-Chromium - open-source Chrome brouser\n
-Skype - everyone knows waht is this\n
-VLC player - media player\nVirtual Box - virtualization solution\n
-Discord - sotial network for message and vouice chats\n
-Vim - text editor in terminal\n
-Python3.8 - interpret for Python language\n
-Telegram - messenger\n
-Gnome-tweak-tools - extansions to basic gnome settings\n
+# mkdir ~/apps
+# cd ~/apps
+apps="Preload - program for storiing some data in RAM
+Git - version controll system
+Visual Studi Code - code editor
+VSCode extansions:
+\tC/C++ extansion
+\tSpell cheker for english and czech language
+\tTemplates for C language
+Chromium - open-source Chrome brouser
+Skype - everyone knows waht is this
+VLC player - media player
+Virtual Box - virtualization solution
+Discord - sotial network for message and vouice chats
+Vim - text editor in terminal
+Python3.8 - interpret for Python language
+Telegram - messenger
+Gnome-tweak-tools - extansions to basic gnome settingn
 Make - system for buildiong projects\n"
 
 
 echo -e "${bold}This script is going to install following programs${offbold}\n${apps}"
 while true; do
-    read -p "Install all of this programs?" yn
-    case $all in
-        [Yy]* ) all = true; break;;
-        [Nn]* ) all = false; break;;
+    read -p "Install all of this programs? " yn
+    case $yn in
+        [Yy]* ) all=true; break;;
+        [Nn]* ) all=false; break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
-#       Install media codecs
-echo -e "\n${bold}${dashs} Insall media codecs ${dashs}${offbold}"
-sudo apt install -y ubuntu-restricted-extras 
+
 
 #       Install preload for storing fiels on RAM
 echo -e "\n${bold}${dashs} Install preload for storing fiels on RAM ${dashs}${offbold}"
@@ -77,14 +76,14 @@ echo -e "\n${bold}${dashs} Check Snap is installed ${dashs}${offbold}"
 
 
 #       install Git
-echo -e"\n${bold}${dashs} Git ${dashs}${offbold}"
+echo -e "\n${bold}${dashs} Git ${dashs}${offbold}"
 (git --version >> /dev/null && echo "${bold}Git is already installed${offbold}") || install_app "Git" "sudo apt install -y git"
 
 
 #       install Visual Studio code
-echo -e"\n${bold}${dashs} Visual Studio code ${dashs}${offbold}"
+echo -e "\n${bold}${dashs} Visual Studio code ${dashs}${offbold}"
 install_app "Visual Studio Code" "sudo snap install code --classic"
-if $all then 
+if $all ; then 
     code --install-extension ms-vscode.cpptools;
     code --install-extansion austin.code-gnu-global;
     code --install-extansion streetsidesoftware.code-spell-checker;
@@ -106,7 +105,7 @@ else
     done
 fi
 
-if $all then 
+if $all ; then 
     cp ~/todo_after_install/c.json ~/.vscode/extansions/
 else
     while true; do
