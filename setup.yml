@@ -1,0 +1,10 @@
+---
+- name: Setup host after OS installation
+  hosts: localhost
+  connection: local
+  user: "{{ user }}"
+  gather_facts: yes
+
+  roles:
+    - Ubuntu
+    

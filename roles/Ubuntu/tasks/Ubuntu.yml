@@ -1,0 +1,63 @@
+---
+
+- name: Install community.general
+  command: ansible-galaxy collection install community.general
+
+- name: Update caches
+  become: yes
+  apt:
+    update_cache: yes
+        
+- name: Install git
+  become: yes
+  apt:
+    name: git
+
+- name: Install openssh-server
+  become: yes
+  apt:
+    name: openssh-server
+
+- name: Install Atom via Snap
+  become: yes
+  snap:
+    name: atom
+    classic: yes
+
+- name: Install VSCode via snap
+  become: yes
+  snap:
+    name: code
+    classic: yes
+
+- name: Install Spotify via snap
+  become: yes
+  snap:
+    name: spotify
+    classic: yes
+
+- name: Install Telegram via snap
+  become: yes
+  snap:
+    name: telegram-desktop
+    classic: yes
+
+- name: Update caches
+  become: yes
+  apt:
+    update_cache: yes
+
+
+- name: Download VK messenger
+  become: yes
+  get_url:
+    url: https://desktop.userapi.com/linux64/master/vk.zip
+    dest: /etc/vk//vk.zip
+    mode: +rw
+  unarchive:
+    src: /etc/vk/vk.zip
+    dest: /etc/vk/
+
+  
+- name: Add VK to favorites
+  shell: gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'vk.desktop']"
